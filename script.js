@@ -1,24 +1,31 @@
 const BASE_URL = 'http://api.reactprototypes.com';
 const API_KEY = '?key=testuser1234';
 
-axios.get(`${BASE_URL}/todos${API_KEY}`).then(resp => {
-    const { todos } = resp.data;
-    const table = $('table tbody');
+//To make a axios get request. Every request needs a promise (.then)
 
-    addToDom(todos, table);
+axios.get(`${BASE_URL}/todos${API_KEY}`).then(resp =>{
+    console.log('RESPONSE: ', resp)
+}).catch (err => {
+    console.log('There was an error: ', err.message);
 });
 
-const addToDom = (list, container) => {
-    const tableRows = list.map((item, index) => {
 
-        const tableData = [
-            $(`<td>${index + 1}</td>`),
-            $(`<td>${item.title}</td>`),
-            item.complete ? $(`<td class="text-success">Yes</td>`) : $(`<td class="text-danger">No</td>`)
-        ];
-
-        return $('<tr>').append(tableData);
-    });
-
-    container.append(tableRows);
+const newItem = {
+    title: 'Harrison\'s new item - Amazing!',
+    details: 'Some details go here'
 };
+
+//To send data to a database, axios.post
+
+// axios.post(`${BASE_URL}/todos${API_KEY}`, newItem).then(resp => {
+//     console.log('Add Response: ', resp)
+// })
+
+const itemID = '5ac288b4329150131fbbff75';
+
+//http://api.reactprototypes.com/todos/5ac288b4329150131fbbff75?key=testuser1234
+
+
+axios.get(`${BASE_URL}/todos/${itemID}${API_KEY}`).then(resp => {
+    console.log('RESPONSE TEST: ', resp)
+})
